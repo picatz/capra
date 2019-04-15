@@ -21,6 +21,7 @@ module Capra
       description "Intrusion Detection System"
 
       command :init do
+        description "create a base Caprafile in the current working directory"
 
         action do
           if File.exists?("Caprafile")
@@ -45,6 +46,8 @@ module Capra
         action do
           unless File.exists?(argument)
             puts "error: cannot find #{argument} in the current directory"
+            puts
+            puts "hint: run `capra init` to create a base Caprafile"
             exit 1
           end
 
