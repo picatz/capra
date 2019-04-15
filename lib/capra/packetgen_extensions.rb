@@ -28,6 +28,14 @@ module PacketGen
       return false unless self.is? 'TCP'
       self.tcp.dport == 23 || self.tcp.sport == 23
     end
+
+    def dns?
+      return true if self.is? 'DNS'
+    end
+    
+    def arp?
+      return true if self.is? 'ARP'
+    end
   end
 
   module Header
