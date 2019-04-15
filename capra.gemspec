@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.executable    = 'capra'
   spec.require_paths = ['lib']
 
-  spec.post_install_message = "Thank you for install Capra!"
+  spec.post_install_message = "Thank you for installing Capra!"
 
   spec.requirements << 'libpcap-dev'
 
