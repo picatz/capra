@@ -36,6 +36,18 @@ module PacketGen
         self.dport == int || self.dport == int
       end
     end
+    
+    class DNS
+      def queries
+        return [] unless self.query?
+        packet.dns.qd.map { |q| q.name.chop! }
+      end
+
+      def responses
+        return [] unless self.response?
+        packet.dns.an.map { |a| a.human_rdata }
+      end
+    end
 
     class IP
       def internal_communication_only?
