@@ -5,8 +5,8 @@ module Capra
         rule_parts = rule.split
   
         rule_options = {} 
- 
-        rule_parts[7..].join(" ").sub("(",'').sub(")",'').split(";").map { |opt| opt.split(":").map { |val| val.gsub('"', '') }}.each do |k, v|
+
+        rule_parts[7..-1].join(" ").sub("(",'').sub(")",'').split(";").map { |opt| opt.split(":").map { |val| val.gsub('"', '') }}.each do |k, v|
           k = k.strip
   
           if rule_options[k]
@@ -70,7 +70,7 @@ module Capra
         end
         if parsed_rule[:options]["pcre"]
           parsed_rule[:options]["pcre"].each do |pcre|
-            regex, regex_ops = pcre.split("/")[1..]
+            regex, regex_ops = pcre.split("/")[1..-1]
             regex_ops_value = regex_ops.split('').map do |str|
               case str
               when "i"
