@@ -51,13 +51,22 @@ module PacketGen
     
     class DNS
       def queries
-        return [] unless self.query?
+        return [] unless self.query? || self.response?
         packet.dns.qd.map { |q| q.name.chop! }
       end
 
       def responses
-        return [] unless self.response?
-        packet.dns.an.map { |a| a.human_rdata }
+        return {} unless self.response?
+        info = {}
+        packet.dns.an.map do |a|
+          name = a.name.chop!
+          if info[name]
+            info[name] << a.human_rdata
+          else
+            info[name] = [a.human_rdata]
+          end
+        end
+        info
       end
     end
 
