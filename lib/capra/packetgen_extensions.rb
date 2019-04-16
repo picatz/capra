@@ -32,6 +32,10 @@ module PacketGen
     def dns?
       return true if self.is? 'DNS'
     end
+
+    def ip?
+      return true if self.is? 'IP'
+    end
     
     def arp?
       return true if self.is? 'ARP'
