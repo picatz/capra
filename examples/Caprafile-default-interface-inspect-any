@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# use the default interface (first non-loopback)
+default_interface
+
+# capture any type of parseable packet
+rule 'ANY' do |packet|
+  # print a human-friendly version of the packet to STDOUT
+  puts packet.inspect
+end
