@@ -31,7 +31,7 @@ module Capra
           File.open("Caprafile", 'w') do |file| 
             file.puts '#!/usr/bin/env ruby'
             file.puts
-            file.puts "interface = '#{Interfacez.default}'"
+            file.puts "interface '#{Interfacez.default}'"
             file.puts
             file.puts "# your rules go here"
           end
