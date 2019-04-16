@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# use the default interface (first non-loopback)
+default_interface
+
+# set counter to zero
+counter = 0
+
+# capture any type of parseable packet
+rule 'ANY' do
+  # print incremented counter value to stdout
+  puts counter += 1
+end
