@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+# use the default interface (first non-loopback)
+default_interface
+
+# capture any type of parseable packet
+rule 'DNS' do |packet|
+  if packet.dns.query?
+    packet.dns.queries.each do |domain|
+      puts "Query for #{domain} going to #{packet.ip.dst}"
+    end
+  elsif packet.dns.response?
+    packet.dns.responses.each do |domain, ips|
+      puts "Response for #{domain} from #{packet.ip.src}: #{ips}"
+    end
+  end
+end
