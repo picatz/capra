@@ -26,7 +26,7 @@ A default `Caprafile` looks like this:
 ```ruby
 #!/usr/bin/env ruby
 
-interface = "eth0"
+interface "eth0"
 
 # your rules go here
 ```
