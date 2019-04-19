@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    capra (0.1.0)
+    capra (1.0.0)
       command_lion (~> 2.0.1)
       ipaddr (~> 1.2.2)
       oj (~> 3.7.11)
