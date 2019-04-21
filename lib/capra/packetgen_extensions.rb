@@ -114,7 +114,7 @@ module PacketGen
         subnet.include?(self.dst)
       end
 
-      def to_subnets?(cidr)
+      def to_subnets?(cidrs)
         cidrs.map { IPAddr.new(cidr) }.include?(self.dst)
       end
     end
