@@ -8,3 +8,5 @@
 /tmp/
 Caprafile
 *.pcap
+*.sh
+*.gem
