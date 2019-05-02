@@ -1,62 +1,71 @@
+# frozen_string_literal: true
+
 module PacketGen
   class Packet
     def ftp?
-      return false unless self.is? 'TCP'
-      self.tcp.dport == 21 || self.tcp.sport == 21
+      return false unless is? 'TCP'
+
+      tcp.dport == 21 || tcp.sport == 21
     end
 
     def ssh?
-      return false unless self.is? 'TCP'
-      self.tcp.dport == 22 || self.tcp.sport == 22
+      return false unless is? 'TCP'
+
+      tcp.dport == 22 || tcp.sport == 22
     end
-   
+
     def icmp?
-      self.is? 'ICMP'
+      is? 'ICMP'
     end
 
     def http?
-      return false unless self.is? 'TCP'
-      self.is? 'HTTP::Request' or self.is? 'HTTP::Response'
+      return false unless is? 'TCP'
+
+      is?('HTTP::Request') || is?('HTTP::Response')
     end
-    
+
     def https?
-      return false unless self.is? 'TCP'
-      self.tcp.dport == 443 || self.tcp.sport == 443 
+      return false unless is? 'TCP'
+
+      tcp.dport == 443 || tcp.sport == 443
     end
 
     def telnet?
-      return false unless self.is? 'TCP'
-      self.tcp.dport == 23 || self.tcp.sport == 23
+      return false unless is? 'TCP'
+
+      tcp.dport == 23 || tcp.sport == 23
     end
 
     def dns?
-      return true if self.is? 'DNS'
+      return true if is? 'DNS'
     end
 
     def ip?
-      return true if self.is? 'IP'
+      return true if is? 'IP'
     end
-    
+
     def arp?
-      return true if self.is? 'ARP'
+      return true if is? 'ARP'
     end
   end
 
   module Header
     class TCP
       def port?(int)
-        self.dport == int || self.dport == int
+        dport == int || dport == int
       end
     end
-    
+
     class DNS
       def queries
-        return [] unless self.query? || self.response?
+        return [] unless query? || response?
+
         packet.dns.qd.map { |q| q.name.chop! }
       end
 
       def responses
-        return {} unless self.response?
+        return {} unless response?
+
         info = {}
         packet.dns.an.map do |a|
           name = a.name.chop!
@@ -72,7 +81,7 @@ module PacketGen
 
     class IP
       def internal_communication_only?
-        PRIVATE_IPS.any? { |private_ip| private_ip.include?(self.src) } and PRIVATE_IPS.any? { |private_ip| private_ip.include?(self.dst) }
+        PRIVATE_IPS.any? { |private_ip| private_ip.include?(src) } && PRIVATE_IPS.any? { |private_ip| private_ip.include?(dst) }
       end
 
       def external_communication?
@@ -80,70 +89,69 @@ module PacketGen
       end
 
       def internal_destination?
-        PRIVATE_IPS.any? { |private_ip| private_ip.include?(self.dst) }
+        PRIVATE_IPS.any? { |private_ip| private_ip.include?(dst) }
       end
-      
+
       def external_destination?
         !internal_destination?
       end
 
       def internal_source?
-        PRIVATE_IPS.any? { |private_ip| private_ip.include?(self.src) }
+        PRIVATE_IPS.any? { |private_ip| private_ip.include?(src) }
       end
 
       def external_source?
-        !internal_source? 
+        !internal_source?
       end
 
       def within_subnet?(cidr)
         subnet = IPAddr.new(cidr)
-        subnet.include?(self.src) or subnet.include?(self.dst)
+        subnet.include?(src) || subnet.include?(dst)
       end
-      
+
       def from_subnet?(cidr)
         subnet = IPAddr.new(cidr)
-        subnet.include?(self.src)
+        subnet.include?(src)
       end
-      
+
       def from_subnets?(cidrs)
-        cidrs.map { IPAddr.new(cidr) }.include?(self.src)
+        cidrs.map { IPAddr.new(cidr) }.include?(src)
       end
-      
+
       def to_subnet?(cidr)
         subnet = IPAddr.new(cidr)
-        subnet.include?(self.dst)
+        subnet.include?(dst)
       end
 
       def to_subnets?(cidrs)
-        cidrs.map { IPAddr.new(cidr) }.include?(self.dst)
+        cidrs.map { IPAddr.new(cidr) }.include?(dst)
       end
     end
 
     class ICMP
       def echo_reply?
-        self.type == 0
+        type == 0
       end
 
       def destination_unreachable?
-        self.type == 3
+        type == 3
       end
 
       def redirect?
-        self.type == 5
+        type == 5
       end
 
       def echo?
-        self.type == 8
+        type == 8
       end
 
       def router_advertisement?
-        self.type == 9
+        type == 9
       end
 
       def router_solicitation?
-        self.type == 10
+        type == 10
       end
     end
   end
 end
-
