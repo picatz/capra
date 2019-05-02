@@ -1,53 +1,51 @@
-require "packetgen"
-require "ipaddr"
-require "fileutils"
-require "command_lion"
-require "capra/version"
-require "capra/private_ips"
-require "capra/packetgen_extensions"
-require "capra/snort_rule_parser"
-require "capra/engine"
-require "capra/version"
+# frozen_string_literal: true
 
-require "pry"
+require 'packetgen'
+require 'ipaddr'
+require 'fileutils'
+require 'command_lion'
+require 'capra/version'
+require 'capra/private_ips'
+require 'capra/packetgen_extensions'
+require 'capra/snort_rule_parser'
+require 'capra/engine'
+require 'capra/version'
 
 module Capra
-  class Error < StandardError; end
-
   def self.run_cli!
     CommandLion::App.run do
-      name "Capra"
+      name 'Capra'
       version Capra::VERSION
-      description "Intrusion Detection System"
+      description 'Intrusion Detection System'
 
       command :init do
-        description "create a base Caprafile in the current working directory"
+        description 'create a base Caprafile in the current working directory'
 
         action do
-          if File.exists?("Caprafile")
-            puts "error: Caprafile already exists!"
+          if File.exist?('Caprafile')
+            puts 'error: Caprafile already exists!'
             exit 1
           end
-          File.open("Caprafile", 'w') do |file| 
+          File.open('Caprafile', 'w') do |file|
             file.puts '#!/usr/bin/env ruby'
             file.puts
             file.puts "interface '#{Interfacez.default}'"
             file.puts
-            file.puts "# your rules go here"
+            file.puts '# your rules go here'
           end
         end
       end
 
       command :start do
-        description "start the engine"
+        description 'start the engine'
 
-        default "Caprafile"
+        default 'Caprafile'
 
         action do
-          unless File.exists?(argument)
+          unless File.exist?(argument)
             puts "error: cannot find #{argument} in the current directory"
             puts
-            puts "hint: run `capra init` to create a base Caprafile"
+            puts 'hint: run `capra init` to create a base Caprafile'
             exit 1
           end
 
@@ -61,7 +59,7 @@ module Capra
       #   alert "ftp"
       # end
       command :convert do
-        description "Convert Snort rule(s) to Caprafile syntax"
+        description 'Convert Snort rule(s) to Caprafile syntax'
 
         type :string
 
