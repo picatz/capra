@@ -1,6 +1,6 @@
-# Capra
+# 🐐 Capra
 
-Capra is a powerful Intrusion Detection System. 
+Capra is a powerful Intrusion Detection System.
 
 ## Installation
 
