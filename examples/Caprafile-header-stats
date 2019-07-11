@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+# use the default interface (first non-loopback)
+default_interface
+
+stats = Hash.new(0)
+
+rule 'ANY' do |packet|
+  print "\e[H\e[2J"
+
+  packet.headers.each do |header|
+    stats[header.protocol_name] += 1
+  end
+
+  total  = stats.values.inject(0, :+)
+  max    = stats.values.max
+  width  = Pry::Terminal.size!.last
+  width0 = stats.map{|k,v| "#{k} (#{v})w".length }.max
+  width1 = width - width0# - 3
+  div    = [1, max / width1.to_f].max
+
+  puts "totalProtocols: #{stats.keys.count} totalPackets: #{total}\r"
+  stats.each do |k,c|
+    puts "%#{width0}s (%d): %-#{width1}s" % [k, stats[k], "█"*((c/div).round)]
+  end
+end
