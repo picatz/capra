@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# use the default interface (first non-loopback)
+default_interface
+
+rule 'ANY' do |packet|
+    packet.to_s.bytes.each do |byte|
+        puts "\033[38;5;#{byte.to_s}m█\033[0;00m"
+    end
+end
