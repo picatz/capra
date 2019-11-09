@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'oj', '~> 3.7.11'
   spec.add_dependency 'packetgen', '~> 3.1.2'
 
-  spec.add_development_dependency 'bundler', '~> 1.17'
+  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'pry', '~> 0.12.2'
   spec.add_development_dependency 'pry-coolline', '~> 0.2.5'
   spec.add_development_dependency 'rake', '~> 10.0'
