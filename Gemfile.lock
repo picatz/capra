@@ -19,7 +19,7 @@ GEM
     ipaddr (1.2.2)
     method_source (1.0.0)
     oj (3.10.5)
-    packetgen (3.1.4)
+    packetgen (3.1.5)
       interfacez (~> 1.0)
       pcaprub (~> 0.12.4)
       rasn1 (~> 0.7, >= 0.7.1)
