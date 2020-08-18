@@ -10,6 +10,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    bigdecimal (2.0.0)
     coderay (1.1.2)
     command_lion (2.0.1)
     coolline (0.5.0)
@@ -18,7 +19,8 @@ GEM
     interfacez (1.0.3)
     ipaddr (1.2.2)
     method_source (1.0.0)
-    oj (3.10.8)
+    oj (3.10.9)
+      bigdecimal (~> 2.0)
     packetgen (3.1.5)
       interfacez (~> 1.0)
       pcaprub (~> 0.12.4)
