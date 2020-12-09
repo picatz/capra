@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0.13.0'
   spec.add_development_dependency 'pry-coolline', '~> 0.2.5'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.9.0'
+  spec.add_development_dependency 'rspec', '~> 3.10.0'
 end
