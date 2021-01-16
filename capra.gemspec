@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'command_lion', '~> 2.0.1'
   spec.add_dependency 'ipaddr', '~> 1.2.2'
-  spec.add_dependency 'oj', '>= 3.7.11', '< 3.11.0'
+  spec.add_dependency 'oj', '>= 3.7.11', '< 3.12.0'
   spec.add_dependency 'packetgen', '~> 3.1.2'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
