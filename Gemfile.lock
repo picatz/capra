@@ -16,7 +16,7 @@ GEM
       unicode_utils (~> 1.4)
     diff-lcs (1.4.4)
     interfacez (1.0.3)
-    ipaddr (1.2.2)
+    ipaddr (1.2.5)
     method_source (1.0.0)
     oj (3.11.1)
     packetgen (3.1.8)
